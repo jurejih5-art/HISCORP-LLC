@@ -1,0 +1,15 @@
+HISCORP website v3 changes
+- Top bar with phone, email, WhatsApp on every page; floating WhatsApp button; back-to-top button
+- Projects page: 14 real photos from the company profile (steel works, equipment, fleet)
+- Credentials section (about, projects, home): 6 certificates from the company profile
+- Client testimonials (AGS Remote Site Services, ICL International) on the home page
+- Company profile PDF (compressed to ~2.8 MB) linked on home, contact, projects, footer
+- "Request a Quote" button on every service, contact form pre-selects the service
+- Contact page phone link fixed (it pointed to a different number)
+- Favicon, social preview (Open Graph/Twitter) tags on every page, sitemap includes Projects
+- Images compressed (hero 4.2 MB -> 0.5 MB); duplicate/PNG originals removed
+- analytics.js: paste a Google Analytics ID (G-XXXX) in GA_ID to switch tracking on
+- v4: removed floating WhatsApp button, extra profile download buttons (kept home hero), home clients/credentials sections, Privacy page; contact hero uses Images/kismayo.png
+- v5: AGS camp photos on Projects/home, removed credentials, company profile download, privacy page
+- v6: Our Team page + CEO message, removed top bar and back-to-top, HISCORP -> HISCORP LLC
+- v7: palette #0b0b0c/#ffffff/#c6f432, back-to-top restored, About page CEO quote + team (no photos), AGS camp captions simplified

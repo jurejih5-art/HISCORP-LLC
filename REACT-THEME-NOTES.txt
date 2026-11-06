@@ -1,0 +1,7 @@
+HISCORP website refresh
+======================
+Theme: graphite, eucalyptus green, and soft ivory. Existing HISCORP logo image is preserved.
+React: the homepage service cards are rendered by React 18 using the official React UMD builds from unpkg CDN. The service category filters are interactive and update the cards.
+Deployment: upload/replace the extracted files in the root of the GitHub Pages repository, commit changes, and wait for Pages to deploy. Because React is loaded from a CDN, visitors need an internet connection for the React-powered filters. A static fallback card list remains in the HTML if React/CDN is unavailable.
+
+Homepage refinement: animated, accessible rotating hero phrases and polished responsive service ribbon added in hero-rotation.js and style.css.
