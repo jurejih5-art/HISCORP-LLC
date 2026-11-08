@@ -2070,3 +2070,9 @@ body.home-page .hero-image{background-image:url('Images/home-bg-1.jpg')}
 .about-ceo-full strong{font-size:22px!important}
 .about-ceo-full span{font-size:12px!important}
 .service-card,.react-cards-grid .service-card{animation:none!important;opacity:1!important;transform:none!important}
+
+/* Contact form result messages */
+#formStatus{font-weight:700}
+#formStatus.form-status-success{color:#1a7f37!important}
+#formStatus.form-status-error{color:#d32f2f!important}
+#formStatus a{color:inherit!important;text-decoration:underline;font-weight:700}

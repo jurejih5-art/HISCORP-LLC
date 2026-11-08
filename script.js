@@ -16,27 +16,53 @@
 
   const form = document.getElementById("contactForm");
   if (form) {
+    const status = document.getElementById("formStatus");
+    const button = document.getElementById("contactSubmit");
+    const show = (type, message) => {
+      if (!status) return;
+      status.classList.remove("form-status-success", "form-status-error");
+      status.classList.add(type === "ok" ? "form-status-success" : "form-status-error");
+      status.textContent = message;
+    };
+
     form.addEventListener("submit", async event => {
       event.preventDefault();
-      const status = document.getElementById("formStatus");
-      const button = document.getElementById("contactSubmit");
-      if (!status) return;
+      if (!form.reportValidity()) return;
+
+      if (!/^https?:$/.test(window.location.protocol)) {
+        show("error", "Please open the published website to send your enquiry.");
+        return;
+      }
+
       if (button) { button.disabled = true; button.textContent = "Sending…"; }
-      status.textContent = "Sending your message…";
+      show("pending", "Sending your message…");
+
       try {
-        const response = await fetch(form.action, {
+        // FormSubmit's AJAX endpoint expects a JSON request for its documented fetch flow.
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        const response = await fetch("https://formsubmit.co/ajax/info@hiscorp-gov.com", {
           method: "POST",
-          body: new FormData(form),
-          headers: { "Accept": "application/json" }
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload)
         });
         const result = await response.json();
-        if (!response.ok || result.success === false) {
-          throw new Error(result.message || "The email service could not accept the message.");
+        const accepted = response.ok && result && String(result.success).toLowerCase() === "true";
+
+        if (!accepted) {
+          throw new Error((result && result.message) || ("The email service returned status " + response.status));
         }
-        status.textContent = "Thank you. Your message has been submitted successfully.";
+
         form.reset();
+        show("ok", "Thanks! Your enquiry has been sent successfully. We will reply soon.");
       } catch (error) {
-        status.textContent = "We couldn't send your message right now. Please email info@hiscorp-gov.com directly or contact us on WhatsApp.";
+        console.error("Contact form error:", error);
+        show("error", error && error.message
+          ? "Your enquiry was not sent: " + error.message + ". Please contact info@hiscorp-gov.com if the problem continues."
+          : "Your enquiry could not be sent right now. Please try again later or contact info@hiscorp-gov.com.");
       } finally {
         if (button) { button.disabled = false; button.textContent = "Send Message →"; }
       }
